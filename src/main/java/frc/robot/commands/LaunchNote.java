@@ -16,7 +16,6 @@ import frc.robot.subsystems.CANLauncher;
 public class LaunchNote extends Command {
   CANLauncher m_launcher;
 
-
   /** Creates a new LaunchNote. */
   public LaunchNote(CANLauncher launcher) {
     // save the launcher system internally
