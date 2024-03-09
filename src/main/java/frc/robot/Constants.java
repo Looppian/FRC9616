@@ -36,7 +36,8 @@ public final class Constants {
     // PWM ports/CAN IDs for motor controllers
     public static final int kFeederID = 5;
     public static final int kLauncherID = 6;
-    public static final int kHookID = 7;
+    public static final int kLeftHookID = 7;
+    public static final int kRightHookID = 8;
 
     // Current limit for launcher and feed wheels
     public static final int kLauncherCurrentLimit = 80;
@@ -47,7 +48,7 @@ public final class Constants {
     public static final double kLauncherSpeed = 1;
     public static final double kLaunchFeederSpeed = 1;
     public static final double kIntakeLauncherSpeed = -1;
-    public static final double kIntakeFeederSpeed = -.2;
+    public static final double kIntakeFeederSpeed = -0.2;
 
     public static final double kLauncherDelay = 1;
   }
