@@ -1,4 +1,3 @@
-// Update
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -42,13 +41,16 @@ public final class Constants {
     // Current limit for launcher and feed wheels
     public static final int kLauncherCurrentLimit = 80;
     public static final int kFeedCurrentLimit = 80;
+    public static final int kHookCurrentLimit = 60;
 
     // Speeds for wheels when intaking and launching. Intake speeds are negative to run the wheels
     // in reverse
     public static final double kLauncherSpeed = 1;
     public static final double kLaunchFeederSpeed = 1;
     public static final double kIntakeLauncherSpeed = -1;
-    public static final double kIntakeFeederSpeed = -0.2;
+    public static final double kIntakeFeederSpeed = -.2;
+    public static final double kHookUpSpeed = .5;
+    public static final double kHookDownSpeed = -.5;
 
     public static final double kLauncherDelay = 1;
   }
