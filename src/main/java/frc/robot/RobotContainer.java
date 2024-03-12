@@ -6,7 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
@@ -29,16 +29,16 @@ public class RobotContainer {
 
   /*The gamepad provided in the KOP shows up like an XBox controller if the mode switch is set to X mode using the
    * switch on the top.*/
-  private final CommandPS4Controller m_driverController =
-      new CommandPS4Controller(OperatorConstants.kDriverControllerPort);
-  private final CommandPS4Controller m_operatorController =
-      new CommandPS4Controller(OperatorConstants.kOperatorControllerPort);
+  private final CommandJoystick m_driverController =
+      new CommandJoystick(OperatorConstants.kDriverControllerPort);
+  private final CommandJoystick m_operatorController =
+      new CommandJoystick(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-  }
+  } 
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be accessed via the
@@ -51,13 +51,13 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 m_drivetrain.arcadeDrive(
-                    -m_driverController.getLeftY(), -m_driverController.getLeftX()),
+                    -m_driverController.getX(), -m_driverController.getY()),
             m_drivetrain));
 
     /*Create an inline sequence to run when the operator presses and holds the A (green) button. Run the PrepareLaunch
      * command for 1 seconds and then run the LaunchNote command */
     m_operatorController
-        .cross() // A on logitech
+        .button(1) // Test Button Configuration
         .whileTrue(
             new PrepareLaunch(m_launcher)
                 .withTimeout(LauncherConstants.kLauncherDelay)
@@ -66,7 +66,7 @@ public class RobotContainer {
 
     // Set up a binding to run the intake command while the operator is pressing and holding the
     // left trigger L2
-    m_operatorController.L2().whileTrue(m_launcher.getIntakeCommand());
+    m_operatorController.trigger().whileTrue(m_launcher.getIntakeCommand());
   }
 
   /**
