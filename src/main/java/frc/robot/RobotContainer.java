@@ -6,7 +6,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
+import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
@@ -31,14 +33,14 @@ public class RobotContainer {
    * switch on the top.*/
   private final CommandJoystick m_driverController =
       new CommandJoystick(OperatorConstants.kDriverControllerPort);
-  private final CommandJoystick m_operatorController =
-      new CommandJoystick(OperatorConstants.kOperatorControllerPort);
+  private final CommandXboxController m_operatorController =
+      new CommandXboxController(OperatorConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-  } 
+  }
 
   /**
    * Use this method to define your trigger->command mappings. Triggers can be accessed via the
@@ -51,13 +53,21 @@ public class RobotContainer {
         new RunCommand(
             () ->
                 m_drivetrain.arcadeDrive(
-                    -m_driverController.getX(), -m_driverController.getY()),
+                    m_driverController.getY()
+                    *((-m_driverController.getThrottle()+1)/2),
+
+                    m_driverController.getX()
+                    *((-m_driverController.getThrottle()+1)/2)
+                    * DrivetrainConstants.kRotationGain
+
+                
+                ),
             m_drivetrain));
 
     /*Create an inline sequence to run when the operator presses and holds the A (green) button. Run the PrepareLaunch
      * command for 1 seconds and then run the LaunchNote command */
-    m_operatorController
-        .button(1) // Test Button Configuration
+    m_driverController
+        .button(1) // button 1 on joystick
         .whileTrue(
             new PrepareLaunch(m_launcher)
                 .withTimeout(LauncherConstants.kLauncherDelay)
@@ -65,8 +75,8 @@ public class RobotContainer {
                 .handleInterrupt(() -> m_launcher.stop()));
 
     // Set up a binding to run the intake command while the operator is pressing and holding the
-    // left trigger L2
-    m_operatorController.trigger().whileTrue(m_launcher.getIntakeCommand());
+    // side button on the joystick
+    m_driverController.button(2).whileTrue(m_launcher.getIntakeCommand());
   }
 
   /**
