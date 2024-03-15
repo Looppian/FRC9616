@@ -10,9 +10,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 import frc.robot.subsystems.CANLauncher;
 
-/*This is an example of creating a command as a class. The base Command class provides a set of methods that your command
- * will override.
- */
 public class LaunchNote extends Command 
 {
   CANLauncher m_launcher;
