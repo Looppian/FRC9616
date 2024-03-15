@@ -1,0 +1,24 @@
+Files:
+    src\main\java\frc\robot\commands\Autos.java
+        Handles auto period
+    src\main\java\frc\robot\commands\LaunchNote.java
+        Handles some launcher commands (?)
+    src\main\java\frc\robot\commands\PrepareLaunch.java
+        Copy of LaunchNotes or vise versa (May need to be deprecated)
+    
+    src\main\java\frc\robot\subsystems\CANDrivetrain.java
+        Handle movement of the robot commands ONLY
+    src\main\java\frc\robot\subsystems\CANHook.java
+        Deprecated, as we do not have a hook (Ignore this file.)
+    src\main\java\frc\robot\subsystems\CANLauncher.java
+        Handles Launcher commands.
+
+    src\main\java\frc\robot\Constants.java
+        Constent values are defind here, do not define classes there, use RobotContainer for that 
+        (Can be accesed via subclass(?).name-of-constant )
+    src\main\java\frc\robot\Main.java
+        Do not touch.
+    src\main\java\frc\robot\Robot.java
+        Could be use for smartdash board (better to create seperete commands)
+    src\main\java\frc\robot\RobotContainer.java
+        Allows use to control launcher, drive train and auto excution

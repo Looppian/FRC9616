@@ -40,18 +40,28 @@ public final class Constants
     public static final int kOperatorControllerPort = 1;
 
     public static final double kTriggerThreshold = 0.25;
-  }
 
+  }
+  
   public static class DrivetrainConstants 
   {
     // Current limit for drivetrain motors
     public static final int kDriveCurrentLimit = 60;
+
+    // Gains and limits for drivebase controll
+    public static final double kBrakeMinimum = 0.35;
+    public static final double kRotationGain = 0.75;
+
+    // Inversion of drivetrain motors
+    public static final boolean bInvertLeft = true;
+    public static final boolean bInvertRight = false;
+
   }
 
   public static class LauncherConstants 
   {
     // Current limit for launcher and feed wheels
-    public static final int kLauncherCurrentLimit = 60;
+    public static final int kLauncherCurrentLimit = 80;
     public static final int kFeedCurrentLimit = 60;
 
     // Speeds for wheels when intaking and launching. Intake speeds are negative to run the wheels

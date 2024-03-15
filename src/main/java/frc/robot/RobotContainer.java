@@ -6,9 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+// import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.Constants.ControllerConstants;
+import frc.robot.Constants.DrivetrainConstants;
 import frc.robot.commands.Autos;
 import frc.robot.commands.LaunchNote;
 import frc.robot.commands.PrepareLaunch;
@@ -30,10 +32,10 @@ public class RobotContainer
 
   /*The gamepad provided in the KOP shows up like an XBox controller if the mode switch is set to X mode using the
    * switch on the top.*/
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(ControllerConstants.kDriverControllerPort);
-  private final CommandXboxController m_operatorController =
-      new CommandXboxController(ControllerConstants.kOperatorControllerPort);
+  private final CommandJoystick m_driverController =
+      new CommandJoystick(ControllerConstants.kDriverControllerPort);
+  // private final CommandXboxController m_operatorController =
+      // new CommandXboxController(ControllerConstants.kOperatorControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() 
@@ -55,24 +57,39 @@ public class RobotContainer
       new RunCommand
       (
         () -> m_drivetrain.arcadeDrive
-            (-m_driverController.getLeftY(), -m_driverController.getRightX()),
+            (
+              // Left stick for forward/back
+              // Left trigger as progressive brake
+              m_driverController.getY() 
+                  * ((-m_driverController.getThrottle() + 1)/2),
+              // Right stick for rotation
+              // Left trigger as progressive brake
+              // Separate gain on rotation as KitBot spins fast
+              m_driverController.getX() 
+                  * ((-m_driverController.getThrottle() + 1 )/2)
+                  * DrivetrainConstants.kRotationGain
+            ),
         m_drivetrain
       )
     );
 
     /*Create an inline sequence to run when the operator presses and holds the A (green) button. Run the PrepareLaunch
      * command for 1 seconds and then run the LaunchNote command */
-    m_operatorController
-        .a()
-        .whileTrue(
-            new PrepareLaunch(m_launcher)
-                .withTimeout(LauncherConstants.kLauncherDelay)
-                .andThen(new LaunchNote(m_launcher))
-                .handleInterrupt(() -> m_launcher.stop()));
+    //m_operatorController
+    m_driverController
+        .button(1)
+        .whileTrue
+        (
+          new PrepareLaunch(m_launcher)
+              .withTimeout(LauncherConstants.kLauncherDelay)
+              .andThen(new LaunchNote(m_launcher))
+              .handleInterrupt(() -> m_launcher.stop())
+        );
 
     // Set up a binding to run the intake command while the operator is pressing and holding the
-    // left trigger
-    m_operatorController.leftTrigger(ControllerConstants.kTriggerThreshold).whileTrue(m_launcher.getIntakeCommand());
+    // right trigger
+    m_driverController.button(2).whileTrue(m_launcher.getIntakeCommand());
+    //m_driverController.rightTrigger(ControllerConstants.kTriggerThreshold).whileTrue(m_launcher.getIntakeCommand());
   }
 
   /**
@@ -83,6 +100,6 @@ public class RobotContainer
   public Command getAutonomousCommand() 
   {
     // An example command will be run in autonomous
-    return Autos.exampleAuto(m_drivetrain);
+    return Autos.simpleAuto(m_drivetrain, m_launcher);
   }
 }

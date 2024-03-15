@@ -24,37 +24,40 @@ public class CANDrivetrain extends SubsystemBase
   /*Class member variables. These variables represent things the class needs to keep track of and use between
   different method calls. */
   DifferentialDrive m_drivetrain;
+  
+  CANSparkMax leftFront;
+  CANSparkMax leftRear;
+  CANSparkMax rightFront;
+  CANSparkMax rightRear;
 
   /*Constructor. This method is called when an instance of the class is created. This should generally be used to set up
    * member variables and perform any configuration or set up necessary on hardware.
    */
   public CANDrivetrain() 
   {
-    try (CANSparkMax leftFront  = new CANSparkMax(kLeftFrontID, MotorType.kBrushless);
-         CANSparkMax leftRear   = new CANSparkMax(kLeftRearID, MotorType.kBrushless);
-         CANSparkMax rightFront = new CANSparkMax(kRightFrontID, MotorType.kBrushless);
-         CANSparkMax rightRear  = new CANSparkMax(kRightRearID, MotorType.kBrushless)) 
-    {
-  
-      /*Sets current limits for the drivetrain motors. This helps reduce the likelihood of wheel spin, reduces motor heating
-       *at stall (Drivetrain pushing against something) and helps maintain battery voltage under heavy demand */
-      leftFront.setSmartCurrentLimit(kDriveCurrentLimit);
-      leftRear.setSmartCurrentLimit(kDriveCurrentLimit);
-      rightFront.setSmartCurrentLimit(kDriveCurrentLimit);
-      rightRear.setSmartCurrentLimit(kDriveCurrentLimit);
-  
-      // Set the rear motors to follow the front motors.
-      leftRear.follow(leftFront);
-      rightRear.follow(rightFront);
-  
-      // Invert the left side so both side drive forward with positive motor outputs
-      leftFront.setInverted(true);
-      rightFront.setInverted(false);
-  
-      // Put the front motors into the differential drive object. This will control all 4 motors with
-      // the rears set to follow the fronts
-      m_drivetrain = new DifferentialDrive(leftFront, rightFront);
-    }
+    leftFront  = new CANSparkMax(kLeftFrontID, MotorType.kBrushless);
+    leftRear   = new CANSparkMax(kLeftRearID, MotorType.kBrushless);
+    rightFront = new CANSparkMax(kRightFrontID, MotorType.kBrushless);
+    rightRear  = new CANSparkMax(kRightRearID, MotorType.kBrushless);
+
+    /*Sets current limits for the drivetrain motors. This helps reduce the likelihood of wheel spin, reduces motor heating
+      *at stall (Drivetrain pushing against something) and helps maintain battery voltage under heavy demand */
+    leftFront.setSmartCurrentLimit(kDriveCurrentLimit);
+    leftRear.setSmartCurrentLimit(kDriveCurrentLimit);
+    rightFront.setSmartCurrentLimit(kDriveCurrentLimit);
+    rightRear.setSmartCurrentLimit(kDriveCurrentLimit);
+
+    // Set the rear motors to follow the front motors.
+    leftRear.follow(leftFront);
+    rightRear.follow(rightFront);
+
+    // Set the inversion of drivetrain so both sides drive forward with positive motor outputs
+    leftFront.setInverted(bInvertLeft);
+    rightFront.setInverted(bInvertRight);
+
+    // Put the front motors into the differential drive object. This will control all 4 motors with
+    // the rears set to follow the fronts
+    m_drivetrain = new DifferentialDrive(leftFront, rightFront);
   }
 
   /*Method to control the drivetrain using arcade drive. Arcade drive takes a speed in the X (forward/back) direction
