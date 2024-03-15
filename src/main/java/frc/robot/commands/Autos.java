@@ -42,9 +42,8 @@ public final class Autos
         .withTimeout(2) */
         .andThen(() -> launcher.setFeedWheel(0))
         .andThen(() -> launcher.setLaunchWheel(0))
-        .andThen(() -> drivetrain.arcadeDrive(-0.5, 0), drivetrain)
         .withTimeout(1);
-
+        .andThen(() -> drivetrain.arcadeDrive(-0.5, 0), drivetrain)
 
         
   }
