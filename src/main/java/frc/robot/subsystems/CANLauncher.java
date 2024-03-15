@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.DeviceIDs.*;
 import static frc.robot.Constants.LauncherConstants.*;
 
 import com.revrobotics.CANSparkMax;
@@ -11,14 +12,16 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class CANLauncher extends SubsystemBase {
+public class CANLauncher extends SubsystemBase 
+{
   CANSparkMax m_launchWheel;
   CANSparkMax m_feedWheel;
 
   /** Creates a new Launcher. */
-  public CANLauncher() {
-    m_launchWheel = new CANSparkMax(kLauncherID, MotorType.kBrushed);
-    m_feedWheel = new CANSparkMax(kFeederID, MotorType.kBrushed);
+  public CANLauncher() 
+  {
+    m_launchWheel = new CANSparkMax(kLauncherID, MotorType.kBrushless);
+    m_feedWheel = new CANSparkMax(kFeederID, MotorType.kBrushless);
 
     m_launchWheel.setSmartCurrentLimit(kLauncherCurrentLimit);
     m_feedWheel.setSmartCurrentLimit(kFeedCurrentLimit);
@@ -31,7 +34,8 @@ public class CANLauncher extends SubsystemBase {
    * that need to span subsystems. The Subsystem class has helper methods, such as the startEnd
    * method used here, to create these commands.
    */
-  public Command getIntakeCommand() {
+  public Command getIntakeCommand() 
+  {
     // The startEnd helper method takes a method to call when the command is initialized and one to
     // call when it ends
     return this.startEnd(
@@ -47,18 +51,21 @@ public class CANLauncher extends SubsystemBase {
   }
 
   // An accessor method to set the speed (technically the output percentage) of the launch wheel
-  public void setLaunchWheel(double speed) {
+  public void setLaunchWheel(double speed) 
+  {
     m_launchWheel.set(speed);
   }
 
   // An accessor method to set the speed (technically the output percentage) of the feed wheel
-  public void setFeedWheel(double speed) {
+  public void setFeedWheel(double speed) 
+  {
     m_feedWheel.set(speed);
   }
 
   // A helper method to stop both wheels. You could skip having a method like this and call the
   // individual accessors with speed = 0 instead
-  public void stop() {
+  public void stop() 
+  {
     m_launchWheel.set(0);
     m_feedWheel.set(0);
   }

@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import static frc.robot.Constants.DeviceIDs.*;
 import static frc.robot.Constants.DrivetrainConstants.*;
 
 import com.revrobotics.CANSparkMax;
@@ -18,7 +19,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
  * for control. Subsystems are a mechanism that, when used in conjuction with command "Requirements", ensure
  * that hardware is only being used by 1 command at a time.
  */
-public class CANDrivetrain extends SubsystemBase {
+public class CANDrivetrain extends SubsystemBase 
+{
   /*Class member variables. These variables represent things the class needs to keep track of and use between
   different method calls. */
   DifferentialDrive m_drivetrain;
@@ -26,18 +28,20 @@ public class CANDrivetrain extends SubsystemBase {
   /*Constructor. This method is called when an instance of the class is created. This should generally be used to set up
    * member variables and perform any configuration or set up necessary on hardware.
    */
-  public CANDrivetrain() {
-    try (CANSparkMax leftFront = new CANSparkMax(kLeftFrontID, MotorType.kBrushed);
-         CANSparkMax leftRear = new CANSparkMax(kLeftRearID, MotorType.kBrushed);
-         CANSparkMax rightFront = new CANSparkMax(kRightFrontID, MotorType.kBrushed);
-         CANSparkMax rightRear = new CANSparkMax(kRightRearID, MotorType.kBrushed)) {
+  public CANDrivetrain() 
+  {
+    try (CANSparkMax leftFront  = new CANSparkMax(kLeftFrontID, MotorType.kBrushless);
+         CANSparkMax leftRear   = new CANSparkMax(kLeftRearID, MotorType.kBrushless);
+         CANSparkMax rightFront = new CANSparkMax(kRightFrontID, MotorType.kBrushless);
+         CANSparkMax rightRear  = new CANSparkMax(kRightRearID, MotorType.kBrushless)) 
+    {
   
       /*Sets current limits for the drivetrain motors. This helps reduce the likelihood of wheel spin, reduces motor heating
        *at stall (Drivetrain pushing against something) and helps maintain battery voltage under heavy demand */
-      leftFront.setSmartCurrentLimit(kCurrentLimit);
-      leftRear.setSmartCurrentLimit(kCurrentLimit);
-      rightFront.setSmartCurrentLimit(kCurrentLimit);
-      rightRear.setSmartCurrentLimit(kCurrentLimit);
+      leftFront.setSmartCurrentLimit(kDriveCurrentLimit);
+      leftRear.setSmartCurrentLimit(kDriveCurrentLimit);
+      rightFront.setSmartCurrentLimit(kDriveCurrentLimit);
+      rightRear.setSmartCurrentLimit(kDriveCurrentLimit);
   
       // Set the rear motors to follow the front motors.
       leftRear.follow(leftFront);
@@ -55,12 +59,14 @@ public class CANDrivetrain extends SubsystemBase {
 
   /*Method to control the drivetrain using arcade drive. Arcade drive takes a speed in the X (forward/back) direction
    * and a rotation about the Z (turning the robot about it's center) and uses these to control the drivetrain motors */
-  public void arcadeDrive(double speed, double rotation) {
+  public void arcadeDrive(double speed, double rotation) 
+  {
     m_drivetrain.arcadeDrive(speed, rotation);
   }
 
   @Override
-  public void periodic() {
+  public void periodic() 
+  {
     /*This method will be called once per scheduler run. It can be used for running tasks we know we want to update each
      * loop such as processing sensor data. Our drivetrain is simple so we don't have anything to put here */
   }
