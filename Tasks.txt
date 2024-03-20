@@ -1,0 +1,13 @@
+Tasks, in order of priority:
+  High:
+    Improve auto
+    Add Comments, and libs for ease of coding
+    Swerve drive 
+  Low:
+    Cams
+    SmartDashboard
+    Selection of Auto Pearod
+    Imporved and streamlined drive code
+  Other:
+    Machine learning control
+    Touch pad control
