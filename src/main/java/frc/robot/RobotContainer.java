@@ -6,12 +6,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-// import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.CommandJoystick;
 import frc.robot.Constants.LauncherConstants;
 import frc.robot.Constants.ControllerConstants;
 import frc.robot.Constants.DrivetrainConstants;
-import frc.robot.commands.Autos;
+import frc.robot.commands.CommandAuto;
 import frc.robot.commands.LaunchNote;
 import frc.robot.commands.PrepareLaunch;
 import frc.robot.subsystems.CANDrivetrain;
@@ -30,8 +29,6 @@ public class RobotContainer
   private final CANDrivetrain m_drivetrain = new CANDrivetrain();
   private final CANLauncher m_launcher = new CANLauncher();
 
-  /*The gamepad provided in the KOP shows up like an XBox controller if the mode switch is set to X mode using the
-   * switch on the top.*/
   private final CommandJoystick m_driverController =
       new CommandJoystick(ControllerConstants.kDriverControllerPort);
   // private final CommandXboxController m_operatorController =
@@ -58,13 +55,11 @@ public class RobotContainer
       (
         () -> m_drivetrain.arcadeDrive
             (
-              // Left stick for forward/back
-              // Left trigger as progressive brake
+              // Joystick Movement Up and Down
               m_driverController.getY() 
                   * ((-m_driverController.getThrottle() + 1)/2),
-              // Right stick for rotation
-              // Left trigger as progressive brake
-              // Separate gain on rotation as KitBot spins fast
+              // Joystick Movement Left and Right
+              // RotationGain, Robot has fast rotation
               m_driverController.getX() 
                   * ((-m_driverController.getThrottle() + 1 )/2)
                   * DrivetrainConstants.kRotationGain
@@ -99,7 +94,7 @@ public class RobotContainer
    */
   public Command getAutonomousCommand() 
   {
-    // An example command will be run in autonomous
-    return Autos.simpleAuto(m_drivetrain, m_launcher);
+    // An example command will be run in autonomous, quinnnnnnnnnnnnnnnnny please 
+    return new CommandAuto(m_drivetrain, m_launcher);
   }
 }

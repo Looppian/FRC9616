@@ -23,8 +23,8 @@ public class CANLauncher extends SubsystemBase
     m_launchWheel = new CANSparkMax(kLauncherID, MotorType.kBrushless);
     m_feedWheel = new CANSparkMax(kFeederID, MotorType.kBrushless);
 
-    m_launchWheel.setSmartCurrentLimit(kLauncherCurrentLimit);
-    m_feedWheel.setSmartCurrentLimit(kFeedCurrentLimit);
+    m_launchWheel.setSmartCurrentLimit(kLauncherCurrentLimit, 100);
+    m_feedWheel.setSmartCurrentLimit(kFeedCurrentLimit, 100);
   }
 
   /**

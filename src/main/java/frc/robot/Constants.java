@@ -38,9 +38,6 @@ public final class Constants
     // tab of the DriverStation
     public static final int kDriverControllerPort = 0;
     public static final int kOperatorControllerPort = 1;
-
-    public static final double kTriggerThreshold = 0.25;
-
   }
   
   public static class DrivetrainConstants 
@@ -50,7 +47,7 @@ public final class Constants
 
     // Gains and limits for drivebase controll
     public static final double kBrakeMinimum = 0.35;
-    public static final double kRotationGain = 0.75;
+    public static final double kRotationGain = 0.6;
 
     // Inversion of drivetrain motors
     public static final boolean bInvertLeft = true;
@@ -61,7 +58,7 @@ public final class Constants
   public static class LauncherConstants 
   {
     // Current limit for launcher and feed wheels
-    public static final int kLauncherCurrentLimit = 60;
+    public static final int kLauncherCurrentLimit = 80;
     public static final int kFeedCurrentLimit = 60;
 
     // Speeds for wheels when intaking and launching. Intake speeds are negative to run the wheels
@@ -69,7 +66,7 @@ public final class Constants
     public static final double kLauncherSpeed = 1;
     public static final double kLaunchFeederSpeed = 1;
     public static final double kIntakeLauncherSpeed = -1;
-    public static final double kIntakeFeederSpeed = -0.2;
+    public static final double kIntakeFeederSpeed = -0.5;
 
     public static final double kLauncherDelay = 1;
   }
@@ -82,7 +79,7 @@ public final class Constants
     public static final int kClimberCurrentLimit = 60;
 
     // Motor speeds for climber
-    public static final double kClimbSpeed = 0.8;
-    public static final double kClimbExtendSpeed = 0.4;
+    public static final double kClimbSpeed = -0.8;
+    public static final double kClimbExtendSpeed = 0.6;
   }
 }
