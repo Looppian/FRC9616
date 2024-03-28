@@ -24,11 +24,11 @@ public class CANHookClimb extends SubsystemBase{
 
     }
 
-public Command getHookUpCommand() {
+public Command getClimbCommand() {
 
     return this.startEnd(
         () -> {
-            setHookUp(kClimbSpeed);
+            setClimbSpeed(kClimbSpeed);
            
         },
 
@@ -38,7 +38,7 @@ public Command getHookUpCommand() {
 
 }
 
-public void setHookUp(double speed) {
+public void setClimbSpeed(double speed) {
     m_leftHook.set(speed);
     m_rightHook.set(speed);
 }
