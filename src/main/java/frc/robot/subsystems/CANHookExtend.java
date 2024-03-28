@@ -29,7 +29,7 @@ public Command getClimbExtendCommand() {
 
     return this.startEnd(
         () -> {
-            setHookDown(kClimbExtendSpeed);
+            setHookExtend(kClimbExtendSpeed);
            
         },
 
@@ -39,7 +39,7 @@ public Command getClimbExtendCommand() {
 
 }
 
-public void setHookDown(double speed) {
+public void setHookExtend(double speed) {
     m_leftHook.set(speed);
     m_rightHook.set(speed);
 }
