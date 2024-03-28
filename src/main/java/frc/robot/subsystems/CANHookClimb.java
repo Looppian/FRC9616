@@ -28,7 +28,7 @@ public Command getClimbCommand() {
 
     return this.startEnd(
         () -> {
-            setClimbSpeed(kClimbSpeed);
+            setHookClimb(kClimbSpeed);
            
         },
 
@@ -38,7 +38,7 @@ public Command getClimbCommand() {
 
 }
 
-public void setClimbSpeed(double speed) {
+public void setHookClimb(double speed) {
     m_leftHook.set(speed);
     m_rightHook.set(speed);
 }
